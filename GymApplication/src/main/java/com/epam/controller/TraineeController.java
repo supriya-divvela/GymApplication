@@ -40,6 +40,11 @@ public class TraineeController {
 
 	}
 
+	@GetMapping("/get")
+	public String getUser(){
+		return "hello";
+	}
+
 	@GetMapping("/{username}")
 	public ResponseEntity<TraineeProfileResponse> getTraineeProfile(@PathVariable("username") String username) {
 		log.info("TraineeController : getTraineeProfile ");
