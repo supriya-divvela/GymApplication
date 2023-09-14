@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  eureka-server:
+    image: eurekha-server
+    ports:
+      - 8760:8761
+    environment:
+      SPRING_APPLICATION_NAME: eureka-server
+      EUREKA_CLIENT_REGISTER-WITH-EUREKA: 'false'
+      EUREKA_CLIENT_FETCH-REGISTRY: 'false'
+    hostname: eurekha-server  # Customize the hostname here

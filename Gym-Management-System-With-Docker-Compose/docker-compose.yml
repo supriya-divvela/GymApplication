@@ -1,0 +1,110 @@
+version: '3.8'
+services:
+  eurekhaapp:
+    container_name: eurekha-app
+    image: eurekha-server-multi
+    ports:
+      - 8760:8761
+      
+  gateway-app:
+    image: gateway-server
+    ports:
+      - 4000:4000
+    depends_on:
+      - eurekhaapp
+    
+  auth-app:
+    image: auth-server
+    ports:
+      - 5000:5000
+    depends_on:
+      - eurekhaapp
+      - gymdb
+      
+  gym-app:
+    image: gymapplication-server
+    ports:
+      - 2000:2000
+    depends_on:
+      - eurekhaapp
+      - gymdb
+      - broker
+    
+  email-app:
+    image: email-server
+    ports:
+      - 1000:1000
+    depends_on:
+      - eurekhaapp
+      - mongodb
+      - broker
+      
+  reports-app:
+    image: reports-server
+    ports:
+      - 3000:3000
+    depends_on:
+      - eurekhaapp
+      - mongodb
+      - broker    
+      
+  gymdb:
+    container_name: gymdb
+    image: mysql
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gymapplicationdb
+      
+  myreportsdb:
+    container_name: myreportsdb
+    image: postgres
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: reportsdb
+      
+  myemaildb:
+    container_name: myemaildb
+    image: postgres
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: emaildb
+
+  zookeeper:
+   container_name: zookeeper
+   image: confluentinc/cp-zookeeper:7.0.1
+   ports:
+     - 2181:2181
+   environment:
+     ZOOKEEPER_CLIENT_PORT: 2181
+     ZOOKEEPER_TICK_TIME: 2000
+   extra_hosts:
+     - "localhost: 127.0.0.1"
+  
+  broker:
+    image: confluentinc/cp-kafka:7.0.1
+    container_name: broker
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    extra_hosts:
+      - "localhost: 127.0.0.1"
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    ports:
+      - 27018:27017
