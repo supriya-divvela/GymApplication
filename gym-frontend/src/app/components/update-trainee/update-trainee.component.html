@@ -1,0 +1,75 @@
+<app-sidebar [username]="username" [person]="person"></app-sidebar>
+<section>
+    <div class="container-fluid col-sm-4">
+        <form [formGroup]="updateTraineeForm" (ngSubmit)="updateTrainee()">
+            <h4 style="text-align: center;">Update Trainee</h4>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="firstname">
+                <label for="floatingInput">First Name</label>
+                <div
+                    *ngIf="updateTraineeForm.controls['firstname'].invalid && (updateTraineeForm.controls['firstname'].dirty || updateTraineeForm.controls['firstname'].touched)">
+                    <div *ngIf="updateTraineeForm.controls['firstname'].errors?.['required']"
+                        class="alert alert-danger">
+                        Firstname is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="lastname">
+                <label for="floatingInput">Last Name</label>
+                <div
+                    *ngIf="updateTraineeForm.controls['lastname'].invalid && (updateTraineeForm.controls['lastname'].dirty || updateTraineeForm.controls['lastname'].touched)">
+                    <div *ngIf="updateTraineeForm.controls['lastname'].errors?.['required']" class="alert alert-danger">
+                        Lastname is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" formControlName="dateOfBirth">
+                <label for="floatingInput">Date Of Birth</label>
+                <div
+                    *ngIf="updateTraineeForm.controls['dateOfBirth'].invalid && (updateTraineeForm.controls['dateOfBirth'].dirty || updateTraineeForm.controls['dateOfBirth'].touched)">
+                    <div *ngIf="updateTraineeForm.controls['dateOfBirth'].errors?.['required']"
+                        class="alert alert-danger">
+                        Date Of Birth is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="textarea" class="form-control" formControlName="address">
+                <label for="floatingInput">Address</label>
+                <div
+                    *ngIf="updateTraineeForm.controls['address'].invalid && (updateTraineeForm.controls['address'].dirty || updateTraineeForm.controls['address'].touched)">
+                    <div *ngIf="updateTraineeForm.controls['address'].errors?.['required']" class="alert alert-danger">
+                        Address is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="isActive" checked="{{trainee.active}}" value="true"
+                    formControlName="isActive">
+                <label class="form-check-label" for="isActive">
+                    Active
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="isActive" formControlName="isActive"
+                    checked="!{{trainee.active}}" value="false">
+                <label class="form-check-label" for="isActive">
+                    InActive
+                </label>
+            </div>
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form2Example1">Avalilable Trainers</label>
+                <select id="form2Example1" class="form-select" multiple formControlName="listOfTrainers">
+                    <option value="" disabled selected>Select Trainers</option>
+                    <option value="{{trainer.username}}" *ngFor="let trainer of trainers;">
+                        {{trainer.username}}
+                    </option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary btn-block mb-4" (click)="updateTrainee()">Update
+                Trainee</button>
+        </form>
+    </div>
+</section>

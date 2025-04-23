@@ -1,0 +1,68 @@
+<app-sidebar [username]="username" [person]="person"></app-sidebar>
+<section>
+    <div class="container-fluid col-sm-4">
+        <form [formGroup]="addTrainingForm" (ngSubmit)="addTraining()">
+            <h4 style="text-align: center;">Add Training For Trainee</h4>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="traineeUsername" readonly>
+                <label for="floatingInput">Trainee Username</label>
+            </div>
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form2Example1">Trainers Name</label>
+                <select id="form2Example1" class="form-select" formControlName="trainerUsername">
+                    <option>Select Trainer Name</option>
+                    <option *ngFor="let trainer of trainee.listOfTrainers;">
+                        {{trainer.username}}
+                    </option>
+                </select>
+                <div *ngIf="addTrainingForm.controls['trainerUsername'].invalid && (addTrainingForm.controls['trainerUsername'].dirty || addTrainingForm.controls['trainerUsername'].touched)"
+                    class="alert alert-danger">
+                    Please Select Proper Trainer Name
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="trainingName">
+                <label for="floatingInput">Training Name</label>
+                <div
+                    *ngIf="addTrainingForm.controls['trainingName'].invalid && (addTrainingForm.controls['trainingName'].dirty || addTrainingForm.controls['trainingName'].touched)">
+                    <div *ngIf="addTrainingForm.controls['trainingName'].errors?.['required']"
+                        class="alert alert-danger">
+                        Training Name is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" formControlName="trainingDate">
+                <label for="floatingInput">Training Date</label>
+                <div
+                    *ngIf="addTrainingForm.controls['trainingDate'].invalid && (addTrainingForm.controls['trainingDate'].dirty || addTrainingForm.controls['trainingDate'].touched)">
+                    <div *ngIf="addTrainingForm.controls['trainingDate'].errors?.['required']"
+                        class="alert alert-danger">
+                        Training Date is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="trainingType" readonly>
+                <label for="floatingInput">Training Type</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" class="form-control" formControlName="trainingDuration">
+                <label for="floatingInput">Training Duration</label>
+                <div for="floatingInput" *ngIf="addTrainingForm.controls['trainingDuration'].hasError('min')">
+                    <div class="alert alert-danger">
+                        Minimum required number is 1.
+                    </div>
+                </div>
+                <div for="floatingInput" *ngIf="addTrainingForm.controls['trainingDuration'].hasError('max')">
+                    <div class="alert alert-danger">
+                        Maximum required number is 10.
+                    </div>
+                </div>
+            </div>
+            <td><button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="!addTrainingForm.valid">Add
+                    Training</button></td>
+            <td><button type="button" class="btn btn-danger btn-block mb-4" (click)="reset()">Reset</button></td>
+        </form>
+    </div>
+</section>

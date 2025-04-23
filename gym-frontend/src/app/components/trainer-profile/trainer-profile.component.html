@@ -1,0 +1,56 @@
+
+<section>
+  <app-sidebar [username]="username" [person]="person"></app-sidebar>
+  <div class="container-fluid col-sm-4">
+    <div>
+      <h4 style="text-align: center;">Trainer Profile</h4>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" value="{{trainer.firstname}}" readonly disabled>
+        <label for="floatingInput">First Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" value="{{trainer.lastname}}" readonly disabled>
+        <label for="floatingInput">Last Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" value="{{username}}" readonly disabled>
+        <label for="floatingInput">User Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" value="{{trainer.specialization}}" readonly disabled>
+        <label for="floatingInput">Specialization</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault"
+          [attr.checked]="trainer.active ? 'checked' : null" disabled>
+        <label class="form-check-label" for="flexRadioDefault1">
+          Active
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="flexRadioDefault"
+          [attr.checked]="!trainer.active ? 'checked' : null" disabled>
+        <label class="form-check-label" for="flexRadioDefault2">
+          InActive
+        </label>
+      </div>
+      <h4 >Trainee Details:</h4>
+      <h5 *ngIf="noOftrainees===0" style="color: red;">Trainees list is empty</h5>
+      <div *ngFor="let trainee of trainer.listOfTrainees;let index=index">
+        <form>  
+          <h6 style="text-align: center;">{{trainee.firstname | uppercase}} Details</h6>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" value="{{trainee.firstname}}" readonly disabled>
+            <label for="floatingInput">First Name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" value="{{trainee.lastname}}" readonly disabled>
+            <label for="floatingInput">Last Name</label>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+</section>

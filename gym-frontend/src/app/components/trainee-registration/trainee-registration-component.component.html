@@ -1,0 +1,82 @@
+<section>
+  <div class="container-fluid col-sm-4">
+    <form [formGroup]="traineeRegistrationForm" (ngSubmit)="traineeRegistration()">
+      <div class="alert alert-danger" *ngIf="errorOccured">Email Already Exists...</div>
+      <h4 style="text-align: center;">Trainee Registration</h4>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="firstname">
+        <label for="floatingInput">First Name</label>
+        <div
+          *ngIf="traineeRegistrationForm.controls['firstname'].invalid && (traineeRegistrationForm.controls['firstname'].dirty || traineeRegistrationForm.controls['firstname'].touched)">
+          <div *ngIf="traineeRegistrationForm.controls['firstname'].errors?.['required']" class="alert alert-danger">
+            Firstname is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="lastname">
+        <label for="floatingInput">Last Name</label>
+        <div
+          *ngIf="traineeRegistrationForm.controls['lastname'].invalid && (traineeRegistrationForm.controls['lastname'].dirty || traineeRegistrationForm.controls['lastname'].touched)">
+          <div *ngIf="traineeRegistrationForm.controls['lastname'].errors?.['required']" class="alert alert-danger">
+            Lastname is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="date" class="form-control" formControlName="dateOfBirth">
+        <label for="floatingInput">Date Of Birth</label>
+        <div
+          *ngIf="traineeRegistrationForm.controls['dateOfBirth'].invalid && (traineeRegistrationForm.controls['dateOfBirth'].dirty || traineeRegistrationForm.controls['dateOfBirth'].touched)">
+          <div *ngIf="traineeRegistrationForm.controls['dateOfBirth'].errors?.['required']" class="alert alert-danger">
+            Date Of Birth is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="textarea" class="form-control" formControlName="address">
+        <label for="floatingInput">Address</label>
+        <div
+          *ngIf="traineeRegistrationForm.controls['address'].invalid && (traineeRegistrationForm.controls['address'].dirty || traineeRegistrationForm.controls['address'].touched)">
+          <div *ngIf="traineeRegistrationForm.controls['address'].errors?.['required']" class="alert alert-danger">
+            Address is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="email">
+        <label for="floatingInput">Email</label>
+        <div
+          *ngIf="traineeRegistrationForm.controls['email'].invalid && (traineeRegistrationForm.controls['email'].dirty || traineeRegistrationForm.controls['email'].touched)">
+          <div *ngIf="traineeRegistrationForm.controls['email'].errors?.['required']" class="alert alert-danger">
+            Email is required.
+          </div>
+          <div *ngIf="traineeRegistrationForm.controls['email'].errors?.['email']" class="alert alert-danger">
+            Please user proper email format
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" formControlName="password">
+        <label for="floatingInput">Password</label>
+        <div
+          *ngIf="traineeRegistrationForm.controls['password'].invalid && (traineeRegistrationForm.controls['password'].dirty || traineeRegistrationForm.controls['password'].touched)">
+          <div *ngIf="traineeRegistrationForm.controls['password'].errors?.['required']" class="alert alert-danger">
+            Password is required.
+          </div>
+          <div class="alert alert-danger" *ngIf="traineeRegistrationForm.controls['password'].errors?.['pattern']">
+            Password must contain more than 8 characters, 1 upper case letter,1 lower case letter and 1
+            special character
+          </div>
+        </div>
+      </div>
+      <td><button type="submit" class="btn btn-primary btn-block mb-4"
+          [disabled]="!traineeRegistrationForm.valid">Register</button></td>
+      <td> <button type="button" class="btn btn-danger btn-block mb-4" (click)="reset()">Reset</button>
+      </td>
+      <div class="text-center">
+        <p>Already a member? <a routerLink="/login">Login</a></p>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+<div class="container-fluid col-sm-4">
+    <div class="form-outline mb-4">
+        <label for="floatingInput">Select Trainee or Trainer</label>
+        <select class="form-select" #teams (change)="onSelected(teams.value)">
+            <option>Trainee</option>
+            <option>Trainer</option>
+        </select>
+    </div>
+</div>
+<app-trainee-registration-component *ngIf="person"></app-trainee-registration-component>
+<app-trainer-registration-component *ngIf="!person"></app-trainer-registration-component>

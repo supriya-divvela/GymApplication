@@ -1,0 +1,78 @@
+<section>
+  <div class="container-fluid col-sm-4">
+    <form [formGroup]="trainerRegistrationForm" (ngSubmit)="trainerRegistration()">
+      <div class="alert alert-danger" *ngIf="errorOccured">Email Already Exists...</div>
+      <h4 style="text-align: center;">Trainer Registration</h4>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="firstname">
+        <label for="floatingInput">First Name</label>
+        <div
+          *ngIf="trainerRegistrationForm.controls['firstname'].invalid && (trainerRegistrationForm.controls['firstname'].dirty || trainerRegistrationForm.controls['firstname'].touched)">
+          <div *ngIf="trainerRegistrationForm.controls['firstname'].errors?.['required']" class="alert alert-danger">
+            Firstname is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="lastname">
+        <label for="floatingInput">Last Name</label>
+        <div
+          *ngIf="trainerRegistrationForm.controls['lastname'].invalid && (trainerRegistrationForm.controls['lastname'].dirty || trainerRegistrationForm.controls['lastname'].touched)">
+          <div *ngIf="trainerRegistrationForm.controls['lastname'].errors?.['required']" class="alert alert-danger">
+            Lastname is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-outline mb-4">
+        <label for="floatingInput">Specialization</label>
+        <select class="form-select" formControlName="specialization">
+          <option value="" disabled selected>Select Specialization</option>
+          <option value="yoga">Yoga</option>
+          <option value="zumba">Zumba</option>
+          <option value="cardio">Cardio</option>
+        </select>
+        <div
+          *ngIf="trainerRegistrationForm.controls['specialization'].invalid && (trainerRegistrationForm.controls['specialization'].dirty || trainerRegistrationForm.controls['specialization'].touched)">
+          <div *ngIf="trainerRegistrationForm.controls['specialization'].errors?.['required']"
+            class="alert alert-danger">
+            Specialization is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="email">
+        <label for="floatingInput">Email</label>
+        <div
+          *ngIf="trainerRegistrationForm.controls['email'].invalid && (trainerRegistrationForm.controls['email'].dirty || trainerRegistrationForm.controls['email'].touched)">
+          <div *ngIf="trainerRegistrationForm.controls['email'].errors?.['required']" class="alert alert-danger">
+            Email is required.
+          </div>
+          <div *ngIf="trainerRegistrationForm.controls['email'].errors?.['email']" class="alert alert-danger">
+            Please user proper email format
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" formControlName="password">
+        <label for="floatingInput">Password</label>
+        <div
+          *ngIf="trainerRegistrationForm.controls['password'].invalid && (trainerRegistrationForm.controls['password'].dirty || trainerRegistrationForm.controls['password'].touched)">
+          <div *ngIf="trainerRegistrationForm.controls['password'].errors?.['required']" class="alert alert-danger">
+            Password is required.
+          </div>
+          <div class="alert alert-danger" *ngIf="trainerRegistrationForm.controls['password'].errors?.['pattern']">
+            Password must contain more than 8 characters, 1 upper case letter,1 lower case letter and 1
+            special character
+          </div>
+        </div>
+      </div>
+      <td><button type="submit" class="btn btn-primary btn-block mb-4"
+          [disabled]="!trainerRegistrationForm.valid">Register</button></td>
+      <td> <button type="button" class="btn btn-danger btn-block mb-4" (click)="reset()">Reset</button>
+      </td>
+      <div class="text-center">
+        <p>Already a member? <a routerLink="/login">Login</a></p>
+      </div>
+    </form>
+  </div>
+</section>

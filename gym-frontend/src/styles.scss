@@ -1,0 +1,9 @@
+// @import "~bootstrap/dist/css/bootstrap.css."
+/* Importing Bootstrap SCSS file. */
+// @import 'bootstrap/scss/bootstrap';
+section{
+    user-select: none;
+}
+  .form-control[readonly] {
+    pointer-events: none;
+  }

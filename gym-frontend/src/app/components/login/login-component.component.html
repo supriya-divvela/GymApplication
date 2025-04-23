@@ -1,0 +1,87 @@
+<section>
+  <div class="container-fluid col-sm-4">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <app-spinner *ngIf="isLoading"></app-spinner>
+      <div *ngIf="errorOccured">
+        <div class="alert alert-danger">{{error}}</div>
+      </div>
+      <h4 style="text-align: center;">Login</h4>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" formControlName="username">
+        <label for="floatingInput">Username</label>
+        <div
+          *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)">
+          <div *ngIf="loginForm.controls['username'].errors?.['required']" class="alert alert-danger">
+            username is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" formControlName="password">
+        <label for="floatingInput">Password</label>
+        <div
+          *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+          <div *ngIf="loginForm.controls['password'].errors?.['required']" class="alert alert-danger">
+            Password is required.
+          </div>
+          <div class="alert alert-danger" *ngIf="loginForm.controls['password'].errors?.['pattern']">
+            Password must contain more than 8 characters, 1 upper case letter,1 lower case letter and 1
+            special character
+          </div>
+        </div>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="trainee" formControlName="person">
+        <label class="form-check-label" for="person">
+          Trainee
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="trainer" formControlName="person">
+        <label class="form-check-label" for="person">
+          Trainer
+        </label>
+      </div>
+      <div
+        *ngIf="loginForm.controls['person'].invalid && (loginForm.controls['person'].dirty || loginForm.controls['person'].touched)">
+        <div *ngIf="loginForm.controls['person'].errors?.['required']" class="alert alert-danger">
+          Password is required.
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control" formControlName="captcha"  style="width: calc(70% - 40px);" readonly>
+          <button type="button" class="input-group-text refresh-icon" (click)="generate()">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="reentercaptcha">
+        <label for="floatingInput">Enter Captcha</label>
+        <div
+          *ngIf="loginForm.controls['reentercaptcha'].invalid && (loginForm.controls['reentercaptcha'].dirty || loginForm.controls['reentercaptcha'].touched)">
+          <div *ngIf="loginForm.controls['reentercaptcha'].errors?.['required']" class="alert alert-danger">
+            Captcha is required.
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="loginForm.controls['reentercaptcha'].valid && loginForm.controls['reentercaptcha'].dirty && loginForm.errors?.['captchaerror']"
+        class="alert alert-danger">
+        Captcha does not match</div>
+      <div class="row mb-4">
+        <div class="col d-flex justify-content-start">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="rememberme" />
+            <label class="form-check-label" for="form2Example31"> Remember me </label>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="!loginForm.valid">Sign in</button>
+      <div class="text-center">
+        <p>Not a member? <a routerLink="/registration">Register here</a></p>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+<app-sidebar [username]="username" [person]="person"></app-sidebar>
+<section>
+  <div class="container-fluid col-sm-4">
+    <form [formGroup]="updateTrainerForm" (ngSubmit)="updateTrainer()">
+      <h4 style="text-align: center;">Update Trainer</h4>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="firstname">
+        <label for="floatingInput">First Name</label>
+        <div
+          *ngIf="updateTrainerForm.controls['firstname'].invalid && (updateTrainerForm.controls['firstname'].dirty || updateTrainerForm.controls['firstname'].touched)">
+          <div *ngIf="updateTrainerForm.controls['firstname'].errors?.['required']" class="alert alert-danger">
+            Firstname is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" formControlName="lastname">
+        <label for="floatingInput">Last Name</label>
+        <div
+          *ngIf="updateTrainerForm.controls['lastname'].invalid && (updateTrainerForm.controls['lastname'].dirty || updateTrainerForm.controls['lastname'].touched)">
+          <div *ngIf="updateTrainerForm.controls['lastname'].errors?.['required']" class="alert alert-danger">
+            Lastname is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="isActive" checked="{{trainer.active}}" value="true"
+          formControlName="isActive">
+        <label class="form-check-label" for="isActive">
+          Active
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="isActive" formControlName="isActive"
+          checked="!{{trainer.active}}" value="false">
+        <label class="form-check-label" for="isActive">
+          InActive
+        </label>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary btn-block mb-4">Update Trainer</button>
+    </form>
+  </div>
+</section>

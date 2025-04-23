@@ -1,0 +1,28 @@
+<div *ngIf="getPerson()">
+    <div id="mySidenav" class="sidenav" style="float: left;">
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+        <a [routerLink]="['/trainee-profile',username]">Trainee Profile</a>
+        <a routerLink="/trainee-trainings"
+        [queryParams]="{traineeusername:username}">Trainings Info</a>
+        <a [routerLink]="['/update-trainee',username]">Update Trainee</a>
+        <a (click)="clickMethod(username)">Delete Profile</a>
+        <a [routerLink]="['/forgot-password',username]">Change Password</a>
+        <a [routerLink]="['/add-training',username]">Add Training</a>
+    </div>
+    <div id="main">
+        <span style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; open</span>
+    </div>
+</div>
+<div *ngIf="!getPerson()">
+    <div id="mySidenav" class="sidenav" style="float: left;">
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+        <a [routerLink]="['/trainer-profile',username]">Trainer Profile</a>
+        <a routerLink="/trainer-trainings"
+        [queryParams]="{trainerusername:username}">Trainings Info</a>
+        <a [routerLink]="['/update-trainer',username]">Update Trainer</a>
+        <a [routerLink]="['/forgot-password',username]">Change Password</a>
+    </div>
+    <div id="main">
+        <span style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; open</span>
+    </div>
+</div>
